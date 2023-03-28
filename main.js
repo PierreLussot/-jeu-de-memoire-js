@@ -7,12 +7,7 @@ let tabJeu = [
   [0, 0, 0, 0],
 ];
 
-let tabJeuResultat = [
-  [1, 4, 3, 4],
-  [1, 2, 3, 2],
-  [7, 8, 6, 5],
-  [8, 7, 5, 6],
-];
+let tabJeuResultat = genereTableauAleatoire();
 
 let oldSelection = [];
 let nbAffiche = 0;
@@ -99,13 +94,31 @@ function verif(bouton) {
         AfficherTableau();
         ready = true;
         nbAffiche = 0;
-      oldSelection = [ligne, colonne];
-
+        oldSelection = [ligne, colonne];
       }, 1000);
-
-      //verification
     } else {
       oldSelection = [ligne, colonne];
     }
   }
+}
+
+function genereTableauAleatoire() {
+  let tab = [];
+  let nbImagePosition = [0, 0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < 4; i++) {
+    let ligne = [];
+    for (let j = 0; j < 4; j++) {
+      let fin = false;
+      while (!fin) {
+        let randomImage = Math.floor(Math.random() * 8);
+        if (nbImagePosition[randomImage] < 2) {
+          ligne.push(randomImage + 1);
+          nbImagePosition[randomImage]++;
+          fin = true;
+        }
+      }
+    }
+    tab.push(ligne);
+  }
+  return tab;
 }
